@@ -14,6 +14,7 @@ module.exports = {
         })
     },
 
+
     getAssessments: (req, res) => {
         Assessment.find()
             .populate('_answers')
@@ -43,13 +44,15 @@ module.exports = {
             });
     },
 
+
     getAssessmentAnswers: (req, res) => {
         const id = req.params.id;
+        console.log(id)
         Assessment.findOne({ _id: id })
             .populate('_answers')
             .exec(function(err, assesments) {
                 if (err) res.json({ success: false, message: 'Could not find assessment', status: 401 });
-                res.json({ success: true, assesments, status: 200 });
+                  res.json({ success: true, assesments, status: 200 });
             })
     }
 };

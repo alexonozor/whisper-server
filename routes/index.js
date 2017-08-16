@@ -16,6 +16,7 @@ router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { sess
 router.get('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.getAllContraceptives);
 router.post('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.createContraceptives);
 
+
 // Assessments
 router.get('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.getAssessments);
 router.get('/assessments-response', passport.authenticate('jwt', { session: false }), AssessmentsResonseController.getAssessmentResponse);
@@ -23,8 +24,5 @@ router.post('/assessments', passport.authenticate('jwt', { session: false }), As
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);
 router.get('/assessment/:id/answers', AssessmentsController.getAssessmentAnswers);
 
-
 module.exports = router;
-
-
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper

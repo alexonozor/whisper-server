@@ -13,4 +13,5 @@ var AssessmentSchema = new mongoose.Schema({
     _answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }]
 });
 
+
 module.exports = mongoose.model('Assessment', AssessmentSchema);

@@ -22,6 +22,7 @@ module.exports = {
         }
     },
 
+    
 
     profile: function(req, res, next) {
         res.json(req.user._id)
