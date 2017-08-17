@@ -38,5 +38,30 @@ module.exports = {
                     res.json({ success: true, assesments, contraceptive, status: 200 });
                 });
         })
-    }
+    },
+
+    deleteContraceptive: (req, res) => {
+        let id = req.params.id;
+        console.log(Contraceptive);
+        Contraceptive.remove({ _id: id }).exec(function(err) {
+            if (err) {
+                res.json({ success: false, error: err, status: 401 })
+            } else {
+                res.json({ success: true, msg: 'Contraceptive has been removed', status: 200 })
+            }
+        })
+    },
+
+
+    updateContraceptive: (req, res) => {
+        let id = req.params.id;
+        let contraceptive = req.body;
+        Contraceptive.update({_id: id }, contraceptive,  (err, contraceptive) => {
+            if (err) {
+                res.json({ success: false, error: err, status: 401 })
+            } else {
+                res.json({ success: true, contraceptive, status: 200 })
+            }
+        })
+    },
 }

@@ -47,12 +47,35 @@ module.exports = {
 
     getAssessmentAnswers: (req, res) => {
         const id = req.params.id;
-        console.log(id)
         Assessment.findOne({ _id: id })
             .populate('_answers')
             .exec(function(err, assesments) {
                 if (err) res.json({ success: false, message: 'Could not find assessment', status: 401 });
                   res.json({ success: true, assesments, status: 200 });
             })
-    }
+    },
+
+    deleteAssessment: (req, res) => {
+        let id = req.params.id;
+        Assessment.remove({ _id: id }).exec(function(err) {
+            if (err) {
+                res.json({ success: false, error: err, status: 401 })
+            } else {
+                res.json({ success: true, msg: 'Assessment has been removed', status: 200 })
+            }
+        })
+    },
+
+
+    updateAssessment: (req, res) => {
+        let id = req.params.id;
+        let assessment = req.body;
+        Assessment.update({_id: id }, assessment,  (err, assessment) => {
+            if (err) {
+                res.json({ success: false, error: err, status: 401 })
+            } else {
+                res.json({ success: true, assessment, status: 200 })
+            }
+        })
+    },
 };
