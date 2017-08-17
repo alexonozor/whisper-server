@@ -22,10 +22,29 @@ module.exports = {
         }
     },
 
-    
+    blockUser: (req, res) => {
 
-    profile: function(req, res, next) {
-        res.json(req.user._id)
-    }
+    },
+
+    deleteUser: (req, res) => {
+
+    },
+
+    permanentlyDeleteUser: (req, res) => {
+
+    },
+
+    updateProfile: (req, res) => {
+
+    },
+
+    makeUserAdmin: (req, res) => {
+
+    },
+
+    banAndUnbanUser: (req, res) => {
+
+    },
+    
 
 }

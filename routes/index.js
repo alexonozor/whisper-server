@@ -6,6 +6,7 @@ const ContraceptivesController = require('../controllers/contraceptivesControlle
 const AssessmentsController = require('../controllers/assessmentsControllers');
 const AnswersController = require('../controllers/answersControllers');
 const AssessmentsResonseController = require('../controllers/responsesController');
+const PharmaciesController = require('../controllers/pharmaciesControllers');
 const passport = require('passport');
 
 // Do work here
@@ -34,6 +35,12 @@ router.get('/answers', AnswersController.getAllAnswers);
 router.delete('/answer/:id', AnswersController.deleteAnswer);
 router.put('/answer/:id', AnswersController.updateAnswer);
 
+// pharmacies
+router.get('/pharmacies', PharmaciesController.getAllPharmacies); // get all pharmacies
+router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single pharmacy
+router.post('/pharmacies', PharmaciesController.createPharmacies); // create a pharmacy
+router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
+router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
 
 module.exports = router;
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper

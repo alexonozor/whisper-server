@@ -1,7 +1,8 @@
-var mongoose = require('mongoose');  
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema 
 var bcrypt = require('bcrypt');
 var mongodbErrorHandler = require('mongoose-mongodb-errors')
-
+var Pharmacy = require('../models/Pharmacy.js');
 
 // Schema defines how the user data will be stored in MongoDB
 var UserSchema = new mongoose.Schema({  
@@ -26,13 +27,31 @@ var UserSchema = new mongoose.Schema({
 
   userName: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+  },
+
+  ban: {
+    type: Boolean,
+    default: false
+  },
+
+  banAt: {
+    type: Date
+  },
+
+  admin: {
+    type: Boolean,
+    default: false
   },
 
   password: {
     type: String,
     required: true
-  }
+  },
+
+  pharmacies: [{ type: Schema.Types.ObjectId, ref: 'Pharmacy' }]
+  
   
 });
 

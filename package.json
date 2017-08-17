@@ -6,7 +6,7 @@
         "node": ">= 7.6.0"
     },
     "scripts": {
-        "start": "node ./start.js",
+        "start": "nodemon ./start.js",
         "watch": "nodemon ./start.js --ignore public/",
         "dev": "concurrently \"npm run watch\"  \"💻,📦\" --prefix name",
         "assets": "webpack -w --display-max-modules 0",

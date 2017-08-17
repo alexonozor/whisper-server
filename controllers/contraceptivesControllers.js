@@ -42,7 +42,6 @@ module.exports = {
 
     deleteContraceptive: (req, res) => {
         let id = req.params.id;
-        console.log(Contraceptive);
         Contraceptive.remove({ _id: id }).exec(function(err) {
             if (err) {
                 res.json({ success: false, error: err, status: 401 })
