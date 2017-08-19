@@ -13,6 +13,15 @@ const passport = require('passport');
 router.post('/register', usersController.registerUser);
 router.post('/login', authenticationController.login);
 
+router.get('/users', usersController.getAllUsers);
+router.get('/user/:id', usersController.getAUser);
+router.post('/adduser-to-pharmacies', usersController.addUserToPhamarcy);
+router.delete('/removeuser-to-pharmacies', usersController.removeUserFromPharmacy);
+router.delete('/permanetly-delete-users/:id', usersController.permanentlyDeleteUser);
+router.post('/add-and-remove-user-as-admin', usersController.toggleAdminShip);
+router.put('/delete-and-undelete-user', usersController.toggleDelete);
+router.put('/ban-and-unban-user', usersController.toggleBan);
+
 //contraceptives
 router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { session: false }), ContraceptivesController.contraceptiveAssessments);
 router.get('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.getAllContraceptives);
@@ -41,6 +50,10 @@ router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single p
 router.post('/pharmacies', PharmaciesController.createPharmacies); // create a pharmacy
 router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
 router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
+
+// assessment response
+router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
+router.get('/assessment-responses', AssessmentsResonseController.getResponses)
 
 module.exports = router;
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper

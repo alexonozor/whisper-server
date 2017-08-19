@@ -4,6 +4,8 @@ var bcrypt = require('bcrypt');
 var mongodbErrorHandler = require('mongoose-mongodb-errors')
 var Pharmacy = require('../models/Pharmacy.js');
 
+const GENDER = ['Male', 'Female'];
+
 // Schema defines how the user data will be stored in MongoDB
 var UserSchema = new mongoose.Schema({  
 
@@ -31,6 +33,11 @@ var UserSchema = new mongoose.Schema({
     unique: true
   },
 
+  gender: {
+    type: String,
+    enum: [GENDER]
+  },
+
   ban: {
     type: Boolean,
     default: false
@@ -41,6 +48,11 @@ var UserSchema = new mongoose.Schema({
   },
 
   admin: {
+    type: Boolean,
+    default: false
+  },
+
+  deleted: {
     type: Boolean,
     default: false
   },
@@ -86,6 +98,7 @@ UserSchema.methods.comparePassword = function(pw, cb) {
     cb(null, isMatch);
   });
 };
+
 
 UserSchema.plugin(mongodbErrorHandler);
 

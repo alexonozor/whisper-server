@@ -6,16 +6,9 @@ var Contraceptive = require('./Contraceptive.js');
 
 // Schema defines how the Contraceptive data will be stored in MongoDB
 var ResponseSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        index: true
-    },
-    // contraceptive: { type: String, ref: 'Contraceptive' },  
-    // answeredBy : { type: String, ref: 'User' },
-    // // replies:  [
-    // //     { type: Schema.Types.ObjectId, ref: 'Assessment' }, 
-    // //     { type: String }
-    // // ]
+    user: { type: Schema.Types.ObjectId, ref: 'User',  required: true  },
+    contraceptive: { type: Schema.Types.ObjectId, ref: 'Contraceptive', required: true  },
+    questions: [{ type: Schema.Types.ObjectId, ref: 'Assessment', required: true  }]
 });
 
 module.exports = mongoose.model('Response', ResponseSchema);
