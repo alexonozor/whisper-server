@@ -16,7 +16,7 @@ module.exports = {
         AssessmentResponse.find().populate('assessments.question').populate('assessments._answers')
             .exec(function(err, responses) {
                 if (err) res.json(err);
-                    res.json({ success: true, responses, status: 401 });
+                    res.json({ success: true, responses, status: 200 });
             })
     },
 
