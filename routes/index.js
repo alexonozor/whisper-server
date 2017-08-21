@@ -35,7 +35,6 @@ router.get('/assessments-response', passport.authenticate('jwt', { session: fals
 router.post('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.create);
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);
 router.get('/assessment/:id/answers', AssessmentsController.getAssessmentAnswers);
-
 router.delete('/assessment/:id', AssessmentsController.deleteAssessment);
 router.put('/assessment/:id', AssessmentsController.updateAssessment);
 

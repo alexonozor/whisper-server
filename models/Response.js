@@ -8,7 +8,11 @@ var Contraceptive = require('./Contraceptive.js');
 var ResponseSchema = new mongoose.Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User',  required: true  },
     contraceptive: { type: Schema.Types.ObjectId, ref: 'Contraceptive', required: true  },
-    questions: [{ type: Schema.Types.ObjectId, ref: 'Assessment', required: true  }]
+    assessments: [ {
+            acceptedAnswer: String,
+            question: { type: Schema.Types.ObjectId, ref: 'Assessment' }
+        }
+    ]
 });
 
 module.exports = mongoose.model('Response', ResponseSchema);
