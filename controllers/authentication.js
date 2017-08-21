@@ -20,7 +20,7 @@ module.exports = {
                         var token = jwt.sign(user, process.env.SECRET, {
                             expiresIn: 10080 // in seconds
                         });
-                        res.json({ success: true, token: token });
+                        res.json({ success: true, user, token: token });
                     } else {
                         res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
                     }
