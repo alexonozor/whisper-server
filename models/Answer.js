@@ -8,6 +8,12 @@ var AnswerSchema = new mongoose.Schema({
     required: true,
     index: true
   },
+
+  eligable: {
+    type: Boolean,
+    required: true
+  },
+
   _assessment: { type: String, ref: 'Assessment' },
   nextQuestionNumber: { type: String },
   hasRelativeQuestion: { type: Boolean, required: true },

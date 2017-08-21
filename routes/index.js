@@ -4,18 +4,30 @@ const usersController = require('../controllers/usersControllers');
 const authenticationController = require('../controllers/authentication');
 const ContraceptivesController = require('../controllers/contraceptivesControllers');
 const AssessmentsController = require('../controllers/assessmentsControllers');
+const AnswersController = require('../controllers/answersControllers');
 const AssessmentsResonseController = require('../controllers/responsesController');
+const PharmaciesController = require('../controllers/pharmaciesControllers');
 const passport = require('passport');
 
 // Do work here
 router.post('/register', usersController.registerUser);
 router.post('/login', authenticationController.login);
 
+router.get('/users', usersController.getAllUsers);
+router.get('/user/:id', usersController.getAUser);
+router.post('/adduser-to-pharmacies', usersController.addUserToPhamarcy);
+router.delete('/removeuser-to-pharmacies', usersController.removeUserFromPharmacy);
+router.delete('/permanetly-delete-users/:id', usersController.permanentlyDeleteUser);
+router.post('/add-and-remove-user-as-admin', usersController.toggleAdminShip);
+router.put('/delete-and-undelete-user', usersController.toggleDelete);
+router.put('/ban-and-unban-user', usersController.toggleBan);
+
 //contraceptives
 router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { session: false }), ContraceptivesController.contraceptiveAssessments);
 router.get('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.getAllContraceptives);
 router.post('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.createContraceptives);
-
+router.delete('/contraceptive/:id', passport.authenticate('jwt', { session: false }), ContraceptivesController.deleteContraceptive);
+router.put('/contraceptive/:id', passport.authenticate('jwt', { session: false }), ContraceptivesController.updateContraceptive);
 
 // Assessments
 router.get('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.getAssessments);
@@ -23,6 +35,24 @@ router.get('/assessments-response', passport.authenticate('jwt', { session: fals
 router.post('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.create);
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);
 router.get('/assessment/:id/answers', AssessmentsController.getAssessmentAnswers);
+router.delete('/assessment/:id', AssessmentsController.deleteAssessment);
+router.put('/assessment/:id', AssessmentsController.updateAssessment);
+
+// Answers
+router.get('/answers', AnswersController.getAllAnswers);
+router.delete('/answer/:id', AnswersController.deleteAnswer);
+router.put('/answer/:id', AnswersController.updateAnswer);
+
+// pharmacies
+router.get('/pharmacies', PharmaciesController.getAllPharmacies); // get all pharmacies
+router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single pharmacy
+router.post('/pharmacies', PharmaciesController.createPharmacies); // create a pharmacy
+router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
+router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
+
+// assessment response
+router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
+router.get('/assessment-responses', AssessmentsResonseController.getResponses)
 
 module.exports = router;
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper
