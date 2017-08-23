@@ -38,7 +38,7 @@ module.exports = {
                     assesment._answers.push(answer);
                     assesment.save((err) => {
                         if (err) return handleError(err);
-                        res.json({ success: true, status: 200 });
+                            res.json({ success: true, status: 200 });
                     })
                 })
             });
