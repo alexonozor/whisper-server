@@ -13,7 +13,11 @@ module.exports = {
 
 
     getResponses: (req, res) => {
-        AssessmentResponse.find().populate('assessments.question').populate('assessments._answers')
+        AssessmentResponse.find()
+        .populate('contraceptive', 'name')
+        .populate('user')
+        .populate('assesments.question')
+        .populate('assessments._answers')
             .exec(function(err, responses) {
                 if (err) res.json(err);
                     res.json({ success: true, responses, status: 200 });
@@ -25,14 +29,15 @@ module.exports = {
 
 
     createAssessmentResponse: (req, res) => {
-        let response = req.body;
-        
+        let response = req.body; 
         let assessmentResponse = new AssessmentResponse({
             user: response.user,
             contraceptive: response.contraceptive,
-            assessments: response.questions
+            assesments: response.questions,
+            createdAt: Date.now()
         });
-       
+
+             
         assessmentResponse.save((err) => {
             if (err) {
                 res.json({ success: false, err, status: 401 });

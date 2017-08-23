@@ -9,10 +9,11 @@ var AnswerSchema = new mongoose.Schema({
     index: true
   },
 
-  eligable: {
+  eligible: {
     type: Boolean,
     required: true
   },
+
 
   _assessment: { type: String, ref: 'Assessment' },
   nextQuestionNumber: { type: String },
