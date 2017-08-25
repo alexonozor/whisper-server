@@ -6,8 +6,9 @@ require('dotenv').config({ path: 'variables.env' });
 module.exports = {
     login: function(req, res) {
         User.findOne({
-            email: req.body.email
+            'contact.email': req.body.email
         }, function(err, user) {
+            console.log(user)
             if (err) throw err;
 
             if (!user) {
