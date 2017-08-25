@@ -1,20 +1,18 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema 
 var bcrypt = require('bcrypt');
-var mongodbErrorHandler = require('mongoose-mongodb-errors')
+// var mongodbErrorHandler = require('mongoose-mongodb-errors')
 var Pharmacy = require('../models/Pharmacy.js');
 
 const GENDER = ['Male', 'Female'];
+const ACCOUNT_TYPE = ['Member', 'Pharmacist', 'Doctor'];
 
 // Schema defines how the user data will be stored in MongoDB
 var UserSchema = new mongoose.Schema({  
 
-  email: {
+  accountType: {
     type: String,
-    lowercase: true,
-    unique: true,
-    required: true,
-    trim: true
+    enum: ACCOUNT_TYPE
   },
 
   firstName: {
@@ -27,6 +25,12 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
 
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
+
+  
   userName: {
     type: String,
     required: true,
@@ -35,7 +39,7 @@ var UserSchema = new mongoose.Schema({
 
   gender: {
     type: String,
-    enum: [GENDER]
+    enum: GENDER
   },
 
   ban: {
@@ -52,6 +56,11 @@ var UserSchema = new mongoose.Schema({
     default: false
   },
 
+  verified: {
+    type: Boolean,
+    default: false
+  },
+
   deleted: {
     type: Boolean,
     default: false
@@ -60,6 +69,43 @@ var UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+
+  contact: {
+    email: {
+      type: String,
+      lowercase: true,
+      required: true,
+      trim: true
+    },
+
+    type: {
+        type: String,
+        default: 'point'
+    },
+
+    coordinates: [{
+        type: Number
+    }],
+
+    lng: {
+        type: Number
+    },
+
+    lat: {
+        type: Number
+    },
+
+    tel: {
+        type: String
+    },
+
+    address: {
+        type: String,
+        required: 'You must supply an address'
+    },
+
+     city: String
   },
 
   pharmacies: [{ type: Schema.Types.ObjectId, ref: 'Pharmacy' }]
@@ -100,6 +146,6 @@ UserSchema.methods.comparePassword = function(pw, cb) {
 };
 
 
-UserSchema.plugin(mongodbErrorHandler);
+// UserSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('User', UserSchema);  

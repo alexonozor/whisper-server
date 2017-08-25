@@ -12,7 +12,7 @@ const passport = require('passport');
 // Do work here
 router.post('/register', usersController.registerUser);
 router.post('/login', authenticationController.login);
-
+// router.put('/user/:id', usersController.updateUser);
 router.get('/users', usersController.getAllUsers);
 router.get('/user/:id', usersController.getAUser);
 router.post('/adduser-to-pharmacies', usersController.addUserToPhamarcy);
@@ -21,6 +21,7 @@ router.delete('/permanetly-delete-users/:id', usersController.permanentlyDeleteU
 router.post('/add-and-remove-user-as-admin', usersController.toggleAdminShip);
 router.put('/delete-and-undelete-user', usersController.toggleDelete);
 router.put('/ban-and-unban-user', usersController.toggleBan);
+
 
 //contraceptives
 router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { session: false }), ContraceptivesController.contraceptiveAssessments);
