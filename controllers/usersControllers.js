@@ -6,10 +6,11 @@ require('dotenv').config({ path: 'variables.env' });
 module.exports = {
 
     registerUser: function(req, res) {
-        if (!req.body.email && !req.body.password) {
+        if (!req.body.contact.email && !req.body.password) {
             res.json({ success: false, message: 'Please enter email and password.' })
         } else {
             var newUser = new User(req.body);
+             newUser.contact.coordinates = [newUser.contact.lng, newUser.contact.lat];
             newUser.save((err) => {
                 if (err) {
                     return res.json({ success: false, message: err });
@@ -17,11 +18,21 @@ module.exports = {
                     var token = jwt.sign(newUser, process.env.SECRET, {
                         expiresIn: 10080 // in seconds
                     });
-                    res.json({ success: true, token: token, message: 'Successfully created new user.' });
+                    res.json({ success: true, user: newUser, token: token, message: 'Successfully created new user.' });
                 }
             })
         }
     },
+
+    //  updateUser: function(req, res) {
+    //         let id = req.params.id;
+    //         let updateParams = req.body;
+    //         User.findOneAndUpdate({_id: id}, updateParams).exec((err, user) => {
+    //             if (user) {
+    //                 res.json({ success: true, user, message: 'Successfully update user.' });
+    //             }
+    //         })
+    // },
 
     getAllUsers: (req, res) => {
         User.find()
