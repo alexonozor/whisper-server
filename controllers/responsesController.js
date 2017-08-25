@@ -26,13 +26,12 @@ module.exports = {
 
 
 
-
-
     createAssessmentResponse: (req, res) => {
         let response = req.body; 
         let assessmentResponse = new AssessmentResponse({
             user: response.user,
             contraceptive: response.contraceptive,
+            note: response.note,
             assesments: response.questions,
             createdAt: Date.now()
         });

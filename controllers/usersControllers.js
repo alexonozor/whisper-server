@@ -24,15 +24,15 @@ module.exports = {
         }
     },
 
-    //  updateUser: function(req, res) {
-    //         let id = req.params.id;
-    //         let updateParams = req.body;
-    //         User.findOneAndUpdate({_id: id}, updateParams).exec((err, user) => {
-    //             if (user) {
-    //                 res.json({ success: true, user, message: 'Successfully update user.' });
-    //             }
-    //         })
-    // },
+     updateUser: function(req, res) {
+            let id = req.params.id;
+            let updateParams = req.body;
+            User.findOneAndUpdate({_id: id}, updateParams).exec((err, user) => {
+                if (user) {
+                    res.json({ success: true, user, message: 'Successfully update user.' });
+                }
+            })
+    },
 
     getAllUsers: (req, res) => {
         User.find()
