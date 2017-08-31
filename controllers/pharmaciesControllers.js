@@ -26,6 +26,7 @@ module.exports = {
     },
 
     createPharmacies: (req, res) => {
+        req.body.location = [req.body.longitude, req.body.latitude]
         let pharmacy = new Pharmacy(req.body);
         let registeredBy = req.body.registeredBy;
         User.findById(registeredBy).exec((err, owner) => {
@@ -76,6 +77,25 @@ module.exports = {
                 res.json({ success: true, pharmacy, status: 200 })
             }
         })
-    }  
+    },
+    
+     getNearerPhamacies: (req, res) => {
+        var maxDistance = 1000 / 6371;
+
+        let coords = [];
+        coords[0] = req.query.longitude;
+        coords[1] = req.query.latitude;
+        Pharmacy.find({
+            location: {
+                $near: coords,
+                $maxDistance: maxDistance
+            }
+        }).exec((err, pharmacies) => {
+            if (err) {
+                return res.json(err);
+            }
+            res.json({status: 200, pharmacies, success: true});
+        })  
+    }
 }
 

@@ -50,10 +50,12 @@ router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single p
 router.post('/pharmacies', PharmaciesController.createPharmacies); // create a pharmacy
 router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
 router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
+router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
 
 // assessment response
 router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
 router.get('/assessment-responses', AssessmentsResonseController.getResponses)
+router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse)
 
 module.exports = router;
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper

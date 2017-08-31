@@ -3,10 +3,12 @@ var mongoose = require('mongoose'),
 var Assessment = require('./Assessment.js');
 var User = require('./User.js');
 var Contraceptive = require('./Contraceptive.js');
+var Pharmacy = require('./Pharmacy.js');
 
 // Schema defines how the Contraceptive data will be stored in MongoDB
 var ResponseSchema = new mongoose.Schema({
     createdAt: { type: Date },
+    selectedPharmacy: { type: Schema.Types.ObjectId, ref: 'Pharmacy' },
     user: { type: Schema.Types.ObjectId, ref: 'User',  required: true  },
     contraceptive: { type: Schema.Types.ObjectId, ref: 'Contraceptive', required: true  },
     note: String,
