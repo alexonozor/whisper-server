@@ -41,7 +41,20 @@ module.exports = {
             if (err) {
                 res.json({ success: false, err, status: 401 });
             } else {
-              res.json({ success: true, message: 'saved', status: 200 });
+              res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
+            }
+        })
+    },
+
+    updateAssessmentResponse: (req, res) => {
+        let response = req.body; 
+        let responseId = req.params.id;
+        AssessmentResponse.findByIdAndUpdate(responseId, response)
+        .exec((err, assessmentResponse) => {
+            if (err) {
+                res.json({ success: false, err, status: 401 });
+            } else {
+              res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
             }
         })
     }

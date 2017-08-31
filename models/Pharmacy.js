@@ -20,32 +20,17 @@ var PharmacySchema = new mongoose.Schema({
     required: true
   },
 
+  longitude: {
+    type: Number
+  },
+
+  latitude: {
+    type: Number
+  },
+
   location: {
-    type: {
-        type: String,
-        default: 'point'
-    },
-
-    coordinates: [{
-        type: Number,
-        required: 'You must supply a coordinate'
-    }],
-
-    log: {
-        type: Number
-    },
-
-    lat: {
-        type: Number
-    },
-
-    address: {
-        type: String,
-        required: 'You must supply an address'
-    },
-
-     city: String,
-     officeNumber: String
+    type: [Number],  // [<longitude>, <latitude>]
+    index: '2d'      // create the geospatial index
   },
 
   contact: {
@@ -63,7 +48,15 @@ var PharmacySchema = new mongoose.Schema({
     website: {
         type: String,
         lowercase: true,
-    }
+    },
+
+     address: {
+        type: String,
+        required: 'You must supply an address'
+    },
+
+     city: String,
+     officeNumber: String
   },
 
   verify: { type: Boolean, default: false },
