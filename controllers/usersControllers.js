@@ -75,7 +75,6 @@ module.exports = {
         User.findById(userId).exec((err, user) => {
             if (user) {
                 user.admin = !user.admin
-                console.log(!user.admin)
                 let msg = user.admin? 'User is now an admin': 'User has been remove as an admin'
                 user.save((err) => {
                     res.json({success: true, message: msg, status: 200});

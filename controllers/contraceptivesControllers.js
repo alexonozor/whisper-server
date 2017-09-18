@@ -6,10 +6,20 @@ const Answer = require('../models/Answer.js');
 module.exports = {
 
     getAllContraceptives: (req, res) => {
-        Contraceptive.find((err, contraceptives) => {
+        Contraceptive.find().populate('shippingMethods').exec((err, contraceptives) => {
             if (err) return handleError(err);
             if (contraceptives) {
                 res.json({ success: true, contraceptives: contraceptives, status: 200 })
+            }
+        })
+    },
+
+    getContraceptive: (req, res) => {
+        let id = req.params.id;
+        Contraceptive.findOne({_id: id}).populate('shippingMethods').exec((err, contraceptive) => {
+            if (err) return handleError(err);
+            if (contraceptive) {
+                res.json({ success: true, contraceptive, status: 200 })
             }
         })
     },
@@ -54,7 +64,7 @@ module.exports = {
 
     updateContraceptive: (req, res) => {
         let id = req.params.id;
-        let contraceptive = req.body;
+        let contraceptive = req.body;  
         Contraceptive.update({_id: id }, contraceptive,  (err, contraceptive) => {
             if (err) {
                 res.json({ success: false, error: err, status: 401 })

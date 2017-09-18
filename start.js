@@ -26,3 +26,8 @@ app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
+var io = require('socket.io').listen(server);
+message = require('./controllers/messagesControllers.js');
+message.socket(io);
+

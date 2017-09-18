@@ -1,5 +1,6 @@
 const AssessmentResponse = require('../models/Response.js');
 const AcceptedAnswer = require('../models/AcceptedAnswer.js');
+const ResponseConversation = require('../models/ResponseConversation.js');
 var winston = require('winston');
 
 module.exports = {
@@ -7,17 +8,32 @@ module.exports = {
         AssessmentResponse.find()
             .exec(function(err, assessment) {
                 if (err) res.json(err);
-                res.json(assessment);
+                 res.json(assessment);
             })
     },
 
 
     getResponses: (req, res) => {
-        AssessmentResponse.find()
+        AssessmentResponse.find().sort({createdAt: 'desc'})
         .populate('contraceptive', 'name')
         .populate('user')
         .populate('assesments.question')
         .populate('assessments._answers')
+        .populate('shippingMethod')
+            .exec(function(err, responses) {
+                if (err) res.json(err);
+                    res.json({ success: true, responses, status: 200 });
+            })
+    },
+
+    
+    getUserResponses: (req, res) => {
+        let userId = req.params.userId;
+        AssessmentResponse.find({ user: userId, isDeleted: false })
+        .populate('contraceptive', 'name')
+        .populate('assesments.question')
+        .populate('assessments._answers')
+        .sort({createdAt: 'desc'})
             .exec(function(err, responses) {
                 if (err) res.json(err);
                     res.json({ success: true, responses, status: 200 });
@@ -57,5 +73,34 @@ module.exports = {
               res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
             }
         })
-    }
+    },
+
+
+    deleteAssessmentResponse: (req, res) => {
+        let responseId = req.params.id;
+        if (!responseId) { res.json({ success: false, message: 'Response id not found', status: 401 }); }
+
+        AssessmentResponse.findByIdAndUpdate(responseId, {isDeleted: true})
+        .exec((err, response) => {
+            if (err) {
+                res.json({ success: false, err, status: 401 });
+            } else {
+                res.json({ success: true, msg: 'has been deleted!', status: 200 })
+            }
+        })
+    },
+    
+
+    createResponseConversation: (req, res) => {
+        let responseConversation = new ResponseConversation(req.body);
+        responseConversation.save((err) => {
+            if (err) {
+                res.json({ success: false, err, status: 401 });
+            } else {
+              res.json({ success: true, responseId: responseConversation._id, status: 200 });
+            }
+        })
+    },
+
+    
 }
