@@ -7,12 +7,14 @@ const AssessmentsController = require('../controllers/assessmentsControllers');
 const AnswersController = require('../controllers/answersControllers');
 const AssessmentsResonseController = require('../controllers/responsesController');
 const PharmaciesController = require('../controllers/pharmaciesControllers');
+const shippingMethodsController = require('../controllers/shippingMethodsControllers');
+const messagesController = require('../controllers/messagesControllers');
 const passport = require('passport');
 
 // Do work here
 router.post('/register', usersController.registerUser);
 router.post('/login', authenticationController.login);
-// router.put('/user/:id', usersController.updateUser);
+router.put('/user/:id', usersController.updateUser);
 router.get('/users', usersController.getAllUsers);
 router.get('/user/:id', usersController.getAUser);
 router.post('/adduser-to-pharmacies', usersController.addUserToPhamarcy);
@@ -25,10 +27,11 @@ router.put('/ban-and-unban-user', usersController.toggleBan);
 
 //contraceptives
 router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { session: false }), ContraceptivesController.contraceptiveAssessments);
-router.get('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.getAllContraceptives);
+router.get('/contraceptive/:id', ContraceptivesController.getContraceptive);
+router.get('/contraceptives', ContraceptivesController.getAllContraceptives);
 router.post('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.createContraceptives);
 router.delete('/contraceptive/:id', passport.authenticate('jwt', { session: false }), ContraceptivesController.deleteContraceptive);
-router.put('/contraceptive/:id', passport.authenticate('jwt', { session: false }), ContraceptivesController.updateContraceptive);
+router.put('/contraceptive/:id', ContraceptivesController.updateContraceptive);
 
 // Assessments
 router.get('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.getAssessments);
@@ -53,9 +56,28 @@ router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update phar
 router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
 
 // assessment response
+
+router.put('/delete-assessment-responses/:id', AssessmentsResonseController.deleteAssessmentResponse); // create assesment response
 router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
-router.get('/assessment-responses', AssessmentsResonseController.getResponses)
-router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse)
+router.get('/assessment-responses', AssessmentsResonseController.getResponses);
+router.get('/user-assessment-responses/:userId', AssessmentsResonseController.getUserResponses);
+router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
+router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
+router.post('/create-conversation', AssessmentsResonseController.createResponseConversation)
+
+//create message
+router.get('/shipping-methods', shippingMethodsController.getShippingMethods);
+router.get('/shipping-method/:id', shippingMethodsController.getAshippingMethod);
+router.post('/shipping-methods', shippingMethodsController.createShippingMethod);
+router.put('/shipping-method/:id', shippingMethodsController.updateShippingMethod);
+router.delete('/shipping-method/:id', shippingMethodsController.deleteShippingMethod);
+
+router.post('/messages', messagesController.create);
+router.get('/conversation/:conversationId/messages', messagesController.conversationMessages);
+
+
+
+
 
 module.exports = router;
 //DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper
