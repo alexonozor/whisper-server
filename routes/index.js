@@ -62,7 +62,6 @@ router.post('/assessment-responses', AssessmentsResonseController.createAssessme
 router.get('/assessment-responses', AssessmentsResonseController.getResponses);
 router.get('/user-assessment-responses/:userId', AssessmentsResonseController.getUserResponses);
 router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
-router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
 router.post('/create-conversation', AssessmentsResonseController.createResponseConversation)
 
 //create message

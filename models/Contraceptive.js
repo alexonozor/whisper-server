@@ -19,6 +19,7 @@ var ContraceptiveSchema = new mongoose.Schema({
     minimumShippingQuantity: Number,
     maximumShippingQuantity: Number,
     price: Number,
+    allowFirstTimerToUsePickUp: Boolean, default: false,
     shippingMethods:  [{ type: Schema.Types.ObjectId, ref: 'ShippingMethod' }],
     appointment: Boolean
 });
