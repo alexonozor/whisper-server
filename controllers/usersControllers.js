@@ -35,7 +35,12 @@ module.exports = {
     },
 
     getAllUsers: (req, res) => {
-        User.find()
+        let query = {}; 
+        if (req.query.accountType) { 
+            query = {accountType: req.query.accountType }
+        }
+        
+        User.find(query)
             .exec(function(err, users) {
                 if (err){
                      res.json({ success: false, err, status: 401 });
@@ -47,7 +52,8 @@ module.exports = {
 
     getAUser: (req, res) => {
         const id = req.params.id;
-        User.findById(id).populate('pharmacies')
+        User.findById(id)
+        .populate('pharmacies')
             .exec(function(err, user) {
                 if (err){
                      res.json({ success: false, err, status: 401 });

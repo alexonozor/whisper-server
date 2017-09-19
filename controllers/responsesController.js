@@ -1,7 +1,7 @@
 const AssessmentResponse = require('../models/Response.js');
 const AcceptedAnswer = require('../models/AcceptedAnswer.js');
 const ResponseConversation = require('../models/ResponseConversation.js');
-var winston = require('winston');
+const User = require('../models/User.js');
 
 module.exports = {
     getAssessmentResponse: (req, res) => {
@@ -65,11 +65,21 @@ module.exports = {
     updateAssessmentResponse: (req, res) => {
         let response = req.body; 
         let responseId = req.params.id;
+        let updateShipping = req.query.updatingShippingForm;
+        let userId = req.query.userId;
         AssessmentResponse.findByIdAndUpdate(responseId, response)
         .exec((err, assessmentResponse) => {
             if (err) {
                 res.json({ success: false, err, status: 401 });
             } else {
+                if (updateShipping) {
+                    User.findById(assessmentResponse.user).exec((err, user) => {
+                        user.orders.push(assessmentResponse.contraceptive);
+                        user.save((err) => {
+                            if (err) throw err
+                        })
+                    })
+                }
               res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
             }
         })
@@ -80,7 +90,7 @@ module.exports = {
         let responseId = req.params.id;
         if (!responseId) { res.json({ success: false, message: 'Response id not found', status: 401 }); }
 
-        AssessmentResponse.findByIdAndUpdate(responseId, {isDeleted: true})
+        AssessmentResponse.findByIdAndUpdate(responseId, { isDeleted: true })
         .exec((err, response) => {
             if (err) {
                 res.json({ success: false, err, status: 401 });

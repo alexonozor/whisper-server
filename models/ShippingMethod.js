@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 // Schema defines how the Contraceptive data will be stored in MongoDB
 var ShippingMethodSchema = new mongoose.Schema({
     name: String,
+    shppingCode: { type: Number },
     shippingFee: Number,
     createdAt: { type: Date } 
 });
