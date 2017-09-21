@@ -31,3 +31,18 @@ var io = require('socket.io').listen(server);
 message = require('./controllers/messagesControllers.js');
 message.socket(io);
 
+
+io.on('connection', (socket) => {
+  
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+    });
+
+    socket.on('message', (message) => {
+         console.log(message);
+         io.emit('message', { type: 'new-message', message });
+        // Function above that stores the message in the database
+    });
+
+});
+

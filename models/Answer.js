@@ -21,6 +21,7 @@ var AnswerSchema = new mongoose.Schema({
   hasWarning: { type: Boolean, required: true },
   warningMessage: { type: String },
   isEditedAnswer: { type: Boolean, required: true },
+  published: { type: Boolean, default: false },
   editedAnswer: { type: String },
   editedAnswerLabel: { type: String }
 });
