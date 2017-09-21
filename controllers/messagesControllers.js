@@ -8,6 +8,8 @@ module.exports =  {
         io = ioParams;
     },
 
+   
+
     create: (req, res) => {
         const message = new Message(req.body);
        
@@ -33,6 +35,21 @@ module.exports =  {
 
     
     conversationMessages: (req, res) => {
+        io.on('connection', (socket) => {
+            
+                console.log('user connected');
+                socket.emit('news', { hello: 'world' });
+                socket.on('disconnect', function() {
+                    console.log('user disconnected');
+                });
+            
+                socket.on('add-message', (message) => {
+                    io.emit('message', { type: 'new-message', text: message });
+                    // Function above that stores the message in the database
+                    databaseStore(message)
+                });
+            
+            });
 
         let conversationId = req.params.conversationId;
         if (!conversationId) {

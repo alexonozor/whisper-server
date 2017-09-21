@@ -26,7 +26,8 @@ router.put('/ban-and-unban-user', usersController.toggleBan);
 
 
 //contraceptives
-router.get('/contraceptive/:id/assessments', passport.authenticate('jwt', { session: false }), ContraceptivesController.contraceptiveAssessments);
+router.get('/contraceptive/:id/assessments', ContraceptivesController.contraceptiveAssessments);
+router.get('/admin-contraceptive/:id/assessments', ContraceptivesController.contraceptiveAssessmentsForAdmin);
 router.get('/contraceptive/:id', ContraceptivesController.getContraceptive);
 router.get('/contraceptives', ContraceptivesController.getAllContraceptives);
 router.post('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.createContraceptives);
@@ -34,7 +35,8 @@ router.delete('/contraceptive/:id', passport.authenticate('jwt', { session: fals
 router.put('/contraceptive/:id', ContraceptivesController.updateContraceptive);
 
 // Assessments
-router.get('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.getAssessments);
+router.get('/admin-assessment/:id/answers', AssessmentsController.getAssessmentAnswersAdmin);
+router.get('/assessments', AssessmentsController.getAssessments);
 router.get('/assessments-response', passport.authenticate('jwt', { session: false }), AssessmentsResonseController.getAssessmentResponse);
 router.post('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.create);
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);

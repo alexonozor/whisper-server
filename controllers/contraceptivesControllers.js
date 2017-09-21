@@ -6,7 +6,20 @@ const Answer = require('../models/Answer.js');
 module.exports = {
 
     getAllContraceptives: (req, res) => {
-        Contraceptive.find().populate('shippingMethods').exec((err, contraceptives) => {
+        Contraceptive.find({ published: true })
+        .populate('shippingMethods')
+        .exec((err, contraceptives) => {
+            if (err) return handleError(err);
+            if (contraceptives) {
+                res.json({ success: true, contraceptives: contraceptives, status: 200 })
+            }
+        })
+    },
+
+    getAllContraceptivesForAdmin: (req, res) => {
+        Contraceptive.find({ published: true })
+        .populate('shippingMethods')
+        .exec((err, contraceptives) => {
             if (err) return handleError(err);
             if (contraceptives) {
                 res.json({ success: true, contraceptives: contraceptives, status: 200 })
@@ -41,8 +54,22 @@ module.exports = {
 
         Contraceptive.findOne({ _id: id }).exec(function(err, contraceptive) {
             if (err) return handleError(err);
+            Assessment.find({ contraceptive: id, published:  true })
+                .populate({path: '_answers', match: { published: { $eq: true }}})
+                .exec(function(err, assesments) {
+                    if (err) return handleError(err);
+                    res.json({ success: true, assesments, contraceptive, status: 200 });
+                });
+        })
+    },
+
+    contraceptiveAssessmentsForAdmin: (req, res) => {
+        let id = req.params.id;
+
+        Contraceptive.findOne({ _id: id }).exec(function(err, contraceptive) {
+            if (err) return handleError(err);
             Assessment.find({ contraceptive: id })
-                .populate('_answers')
+                .populate({path: '_answers'})
                 .exec(function(err, assesments) {
                     if (err) return handleError(err);
                     res.json({ success: true, assesments, contraceptive, status: 200 });

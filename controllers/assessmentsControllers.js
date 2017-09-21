@@ -48,9 +48,19 @@ module.exports = {
     getAssessmentAnswers: (req, res) => {
         const id = req.params.id;
         Assessment.findOne({ _id: id })
+            .populate({path: '_answers', match: { published: { $eq: true }}})
+            .exec(function(err, assesments) {
+                if (err) res.json({ success: false, message: err, status: 401 });
+                  res.json({ success: true, assesments, status: 200 });
+            })
+    },
+
+    getAssessmentAnswersAdmin: (req, res) => {
+        const id = req.params.id;
+        Assessment.findOne({ _id: id })
             .populate('_answers')
             .exec(function(err, assesments) {
-                if (err) res.json({ success: false, message: 'Could not find assessment', status: 401 });
+                if (err) res.json({ success: false, message: err, status: 401 });
                   res.json({ success: true, assesments, status: 200 });
             })
     },
