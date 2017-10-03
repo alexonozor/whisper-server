@@ -17,7 +17,7 @@ module.exports = {
     },
 
     getAllContraceptivesForAdmin: (req, res) => {
-        Contraceptive.find({ published: true })
+        Contraceptive.find()
         .populate('shippingMethods')
         .exec((err, contraceptives) => {
             if (err) return handleError(err);
