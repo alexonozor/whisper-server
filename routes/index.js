@@ -30,6 +30,7 @@ router.get('/contraceptive/:id/assessments', ContraceptivesController.contracept
 router.get('/admin-contraceptive/:id/assessments', ContraceptivesController.contraceptiveAssessmentsForAdmin);
 router.get('/contraceptive/:id', ContraceptivesController.getContraceptive);
 router.get('/contraceptives', ContraceptivesController.getAllContraceptives);
+router.get('/admin-contraceptives', ContraceptivesController.getAllContraceptivesForAdmin);
 router.post('/contraceptives', passport.authenticate('jwt', { session: false }), ContraceptivesController.createContraceptives);
 router.delete('/contraceptive/:id', passport.authenticate('jwt', { session: false }), ContraceptivesController.deleteContraceptive);
 router.put('/contraceptive/:id', ContraceptivesController.updateContraceptive);
