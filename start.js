@@ -33,16 +33,18 @@ message.socket(io);
 
 
 io.on('connection', (socket) => {
-  
-    socket.on('disconnect', function() {
-        console.log('user disconnected');
-    });
 
-    socket.on('message', (message) => {
-         console.log(message);
-         io.emit('message', { type: 'new-message', message });
-        // Function above that stores the message in the database
-    });
+  socket.on('room', function(room) {
+      socket.join(room);
+  });
+  
+  socket.on('message', (message) => {
+      io.sockets.in(message.conversation).emit('message', message);
+      // // Function above that stores the message in the database
+  });
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  });
 
 });
-

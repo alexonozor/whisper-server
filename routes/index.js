@@ -9,6 +9,7 @@ const AssessmentsResonseController = require('../controllers/responsesController
 const PharmaciesController = require('../controllers/pharmaciesControllers');
 const shippingMethodsController = require('../controllers/shippingMethodsControllers');
 const messagesController = require('../controllers/messagesControllers');
+const notificationsController = require('../controllers/notificationsControllers');
 const passport = require('passport');
 
 // Do work here
@@ -77,6 +78,10 @@ router.delete('/shipping-method/:id', shippingMethodsController.deleteShippingMe
 router.post('/messages', messagesController.create);
 router.get('/conversation/:conversationId/messages', messagesController.conversationMessages);
 
+
+//notifications
+router.post('/notifications', notificationsController.create);
+router.post('/getuser-notifications/:userId', notificationsController.getUserNotifications);
 
 
 
