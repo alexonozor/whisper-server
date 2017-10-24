@@ -147,6 +147,7 @@ UserSchema.methods.comparePassword = function(pw, cb) {
 };
 
 
+
 // UserSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('User', UserSchema);  
