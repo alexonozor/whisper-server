@@ -40,7 +40,7 @@ router.put('/contraceptive/:id', ContraceptivesController.updateContraceptive);
 router.get('/admin-assessment/:id/answers', AssessmentsController.getAssessmentAnswersAdmin);
 router.get('/assessments', AssessmentsController.getAssessments);
 router.get('/assessments-response', passport.authenticate('jwt', { session: false }), AssessmentsResonseController.getAssessmentResponse);
-router.post('/assessments', passport.authenticate('jwt', { session: false }), AssessmentsController.create);
+router.post('/assessments', AssessmentsController.create);
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);
 router.get('/assessment/:id/answers', AssessmentsController.getAssessmentAnswers);
 router.delete('/assessment/:id', AssessmentsController.deleteAssessment);
@@ -60,13 +60,15 @@ router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update phar
 router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
 
 // assessment response
-
 router.put('/delete-assessment-responses/:id', AssessmentsResonseController.deleteAssessmentResponse); // create assesment response
 router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
 router.get('/assessment-responses', AssessmentsResonseController.getResponses);
 router.get('/user-assessment-responses/:userId', AssessmentsResonseController.getUserResponses);
 router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
-router.post('/create-conversation', AssessmentsResonseController.createResponseConversation)
+router.post('/create-conversation', AssessmentsResonseController.createResponseConversation);
+router.put('/conversation/:conversationId/user/:userId', AssessmentsResonseController.addUserToConversation);
+router.delete('/conversation/:conversationId/user/:userId', AssessmentsResonseController.removeUserFromConversation);
+
 
 //create message
 router.get('/shipping-methods', shippingMethodsController.getShippingMethods);
@@ -81,7 +83,7 @@ router.get('/conversation/:conversationId/messages', messagesController.conversa
 
 //notifications
 router.post('/notifications', notificationsController.create);
-router.post('/getuser-notifications/:userId', notificationsController.getUserNotifications);
+router.get('/getuser-notifications/:userId', notificationsController.getUserNotifications);
 
 
 

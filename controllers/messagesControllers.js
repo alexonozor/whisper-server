@@ -12,7 +12,6 @@ module.exports =  {
 
     create: (req, res) => {
         const message = new Message(req.body);
-       
         Conversation.findOne({_id: message.conversation}).exec((err, conversation) => {
             if (!conversation) {
                 res.json({ success: false, message: 'No conversation found!', status: 401 })
@@ -32,7 +31,6 @@ module.exports =  {
                 })
         })
     },
-
     
     conversationMessages: (req, res) => {
         io.on('connection', (socket) => {

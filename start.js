@@ -42,6 +42,7 @@ io.on('connection', (socket) => {
       io.sockets.in(message.conversation).emit('message', message);
       // // Function above that stores the message in the database
   });
+  
 
   socket.on('disconnect', function() {
     console.log('user disconnected');

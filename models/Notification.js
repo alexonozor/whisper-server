@@ -10,6 +10,7 @@ var NotificationSchema = new mongoose.Schema({
     notification_type: { type: String, enum: NOTIFICATION_TYPE },
     notification_type_id: { type: String },
     seen:  { type: Boolean, default: false },
+    content:  { type: String },
     createdAt: { type: Date, default: Date.now },
     isDeleted: { type: Boolean, default: false } 
 });

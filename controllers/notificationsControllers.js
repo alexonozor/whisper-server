@@ -9,7 +9,7 @@ module.exports =  {
     const notification = new Notification(req.body);
 	  notification.save((err) => {
 	    if (err) {
-		    res.json({ success: false, message: 'No conversation found!', status: 401 })	
+		    res.json({ success: false, err, status: 401 })	
 	    } else {
 		    res.json({ success: true, notification, status: 200 });
 	    }
@@ -18,8 +18,11 @@ module.exports =  {
 
     
    getUserNotifications: (req, res) => {
-    const userId = req.pramas.userId;
-	   Notification.find({receiver: userId}).exec((err, notifications) => {
+    const userId = req.params.userId;
+     Notification.find({receiver: userId})
+     .populate('receiver', 'id, userName')
+     .populate('sender', 'id, userName')
+     .exec((err, notifications) => {
 		   if (err) {
           res.json({ success: false, err, status: 401 });
        } else {

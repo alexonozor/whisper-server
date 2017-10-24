@@ -74,6 +74,7 @@ module.exports = {
             } else {
                 if (updateShipping) {
                     User.findById(assessmentResponse.user).exec((err, user) => {
+                        console.log(user)
                         user.orders.push(assessmentResponse.contraceptive);
                         user.save((err) => {
                             if (err) throw err
@@ -111,6 +112,48 @@ module.exports = {
             }
         })
     },
+
+    addUserToConversation: (req, res) => {
+        let userId = req.params.userId;
+        let conversationId = req.params.conversationId;
+        ResponseConversation.findById(conversationId)
+        .exec((err, conversation) => {
+            if (err) {
+                res.json({ success: false, meesage: "Conversation not found", status: 401 });
+            } else {
+                conversation.users.push(userId)
+                conversation.save((err) => {
+                    if (err) {
+                        res.json({ success: false, err, status: 401 });
+                    } else {
+                        res.json({ success: true, msg: 'User has been added to conversation', status: 200 });
+                    }
+                })
+            }
+        })
+    },
+
+    removeUserFromConversation: (req, res) => {
+        let userId = req.params.userId;
+        let conversationId = req.params.conversationId;
+        ResponseConversation.findById(conversationId)
+        .exec((err, conversation) => {
+            if (err) {
+                res.json({ success: false, meesage: "Conversation not found", status: 401 });
+            } else {
+                conversation.users.pull(userId)
+                conversation.save((err) => {
+                    if (err) {
+                        res.json({ success: false, err, status: 401 });
+                    } else {
+                        res.json({ success: true, msg: 'User has been removed from conversation', status: 200 });
+                    }
+                })
+            }
+        })
+    },
+
+    
 
     
 }
