@@ -6,11 +6,11 @@ require('dotenv').config({ path: 'variables.env' });
 module.exports = {
 
     registerUser: function(req, res) {
-        if (!req.body.contact.email && !req.body.password) {
+        if (!req.body.email && !req.body.password) {
             res.json({ success: false, message: 'Please enter email and password.' })
         } else {
             var newUser = new User(req.body);
-             newUser.contact.coordinates = [newUser.contact.lng, newUser.contact.lat];
+            
             newUser.save((err) => {
                 if (err) {
                     return res.json({ success: false, message: err });

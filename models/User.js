@@ -27,15 +27,12 @@ var UserSchema = new mongoose.Schema({
   },
 
   dateOfBirth: {
-    type: Date,
-    required: true
+    type: Date
   },
 
   
   userName: {
-    type: String,
-    required: true,
-    unique: true
+    type: String
   },
 
   gender: {
@@ -72,14 +69,14 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
 
-  contact: {
-    email: {
-      type: String,
-      lowercase: true,
-      required: true,
-      trim: true
-    },
+  email: {
+    type: String,
+    lowercase: true,
+    required: true,
+    trim: true
+  },
 
+  contact: {
     type: {
         type: String,
         default: 'point'
@@ -102,8 +99,7 @@ var UserSchema = new mongoose.Schema({
     },
 
     address: {
-        type: String,
-        required: 'You must supply an address'
+        type: String
     },
 
      city: String
