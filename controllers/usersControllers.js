@@ -6,6 +6,7 @@ require('dotenv').config({ path: 'variables.env' });
 module.exports = {
 
     registerUser: function(req, res) {
+        console.log(req.body)
         if (!req.body.email && !req.body.password) {
             res.json({ success: false, message: 'Please enter email and password.' })
         } else {
