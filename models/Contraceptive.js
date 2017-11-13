@@ -21,6 +21,7 @@ var ContraceptiveSchema = new mongoose.Schema({
     price: Number,
     allowFirstTimerToUsePickUp: Boolean, default: false,
     shippingMethods:  [{ type: Schema.Types.ObjectId, ref: 'ShippingMethod' }],
+    releatedContraceptives: [{ type: Schema.Types.ObjectId, ref: 'Contraceptive' }],
     appointment: Boolean,
     published: { type: Boolean, default: false }
 });
