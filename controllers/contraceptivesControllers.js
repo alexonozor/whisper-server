@@ -20,6 +20,7 @@ module.exports = {
     getAllContraceptivesForAdmin: (req, res) => {
         Contraceptive.find()
         .populate('shippingMethods')
+        .populate('releatedContraceptives', 'id, name')
         .exec((err, contraceptives) => {
             if (err) return handleError(err);
             if (contraceptives) {
@@ -30,7 +31,10 @@ module.exports = {
 
     getContraceptive: (req, res) => {
         let id = req.params.id;
-        Contraceptive.findOne({_id: id}).populate('shippingMethods').exec((err, contraceptive) => {
+        Contraceptive.findOne({_id: id})
+        .populate('shippingMethods')
+        .populate('releatedContraceptives', 'id, name')
+        .exec((err, contraceptive) => {
             if (err) return handleError(err);
             if (contraceptive) {
                 res.json({ success: true, contraceptive, status: 200 })
