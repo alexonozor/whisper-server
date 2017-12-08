@@ -2,6 +2,7 @@ const AssessmentResponse = require('../models/Response.js');
 const AcceptedAnswer = require('../models/AcceptedAnswer.js');
 const ResponseConversation = require('../models/ResponseConversation.js');
 const User = require('../models/User.js');
+const nodemailer = require('nodemailer');
 
 module.exports = {
     getAssessmentResponse: (req, res) => {
@@ -51,12 +52,54 @@ module.exports = {
             assesments: response.questions,
             createdAt: Date.now()
         });
-
-             
+        let  dateSide = new Date(Date.now());    
         assessmentResponse.save((err) => {
             if (err) {
                 res.json({ success: false, err, status: 401 });
             } else {
+                console.log(assessmentResponse);
+                AssessmentResponse.findById(assessmentResponse._id)
+                .populate('user')
+                .populate('contraceptive').exec(function(err, response) {
+                    nodemailer.createTestAccount((err, account) => {
+                            // create reusable transporter object using the default SMTP transport
+                            let transporter = nodemailer.createTransport({
+                                host: 'smtp.gmail.com',
+                                port: 465,
+                                secure: true, // true for 465, false for other ports
+                                auth: {
+                                    user: process.env.EMAIL, // generated ethereal user
+                                    pass: process.env.EMAIL_PASSWORD  // generated ethereal password
+                                }
+                            });
+                        
+                            // setup email data with unicode symbols
+                            let mailOptions = {
+                                from: `${response.user.firstName} <${response.user.email}>`, // sender address
+                                to: process.env.RECEIVER_EMAIL, // list of receivers
+                                subject: 'New Assements has been created!', // Subject line
+                                text: `Hi Reni, ${response.user.firstName} has just submited a new assesment.
+                                       click here 
+                                `, // plain text body
+                                html: `Hi Reni, ${response.user.firstName} has just submited a new assessment on ${response.contraceptive.name} contraceptive at ${dateSide}.
+                                <a href="https://whisper-angular.herokuapp.com/dashboard/contraceptives">Click here to review</a> 
+                         ` // html body
+                            };
+                        
+                            // send mail with defined transport object
+                            transporter.sendMail(mailOptions, (error, info) => {
+                                if (error) {
+                                    return console.log(error);
+                                }
+                                console.log('Message sent: %s', info.messageId);
+                                // Preview only available when sending through an Ethereal account
+                                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                        
+                                // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
+                                // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+                            });
+                        });
+                })
               res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
             }
         })
