@@ -60,6 +60,7 @@ module.exports = {
         Contraceptive.findOne({ _id: id }).exec(function(err, contraceptive) {
             if (err) return handleError(err);
             Assessment.find({ contraceptive: id, published:  true })
+                .sort({createdAt: 'desc'})
                 .populate({path: '_answers', match: { published: { $eq: true }}})
                 .exec(function(err, assesments) {
                     if (err) return handleError(err);

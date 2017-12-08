@@ -39,7 +39,7 @@ router.put('/contraceptive/:id', ContraceptivesController.updateContraceptive);
 // Assessments
 router.get('/admin-assessment/:id/answers', AssessmentsController.getAssessmentAnswersAdmin);
 router.get('/assessments', AssessmentsController.getAssessments);
-router.get('/assessments-response', passport.authenticate('jwt', { session: false }), AssessmentsResonseController.getAssessmentResponse);
+router.get('/assessments-response', AssessmentsResonseController.getAssessmentResponse);
 router.post('/assessments', AssessmentsController.create);
 router.post('/assessment/:id/answers', AssessmentsController.createAssessmentAnswer);
 router.get('/assessment/:id/answers', AssessmentsController.getAssessmentAnswers);
