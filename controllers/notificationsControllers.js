@@ -20,8 +20,8 @@ module.exports =  {
    getUserNotifications: (req, res) => {
     const userId = req.params.userId;
      Notification.find({receiver: userId})
-     .populate('receiver', 'id, userName')
-     .populate('sender', 'id, userName')
+     .populate('receiver', 'id, firstName')
+     .populate('sender', 'id, firstName')
      .exec((err, notifications) => {
 		   if (err) {
           res.json({ success: false, err, status: 401 });
