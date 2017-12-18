@@ -29,6 +29,7 @@ module.exports = {
         })
     },
 
+    
     getContraceptive: (req, res) => {
         let id = req.params.id;
         Contraceptive.findOne({_id: id})

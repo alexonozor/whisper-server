@@ -6,7 +6,7 @@ require('dotenv').config({ path: 'variables.env' });
 module.exports = {
 
     registerUser: function(req, res) {
-        console.log(req.body)
+
         if (!req.body.email && !req.body.password) {
             res.json({ success: false, message: 'Please enter email and password.' })
         } else {
@@ -30,7 +30,9 @@ module.exports = {
             let updateParams = req.body;
             User.findOneAndUpdate({_id: id}, updateParams).exec((err, user) => {
                 if (user) {
-                    res.json({ success: true, user, message: 'Successfully update user.' });
+                    User.findById(user._id).exec((er, user) => {
+                        res.json({ success: true, user, message: 'Successfully update user.' });
+                    })
                 }
             })
     },
