@@ -96,6 +96,19 @@ module.exports = {
             }
             res.json({status: 200, pharmacies, success: true});
         })  
+    },
+
+    search: (req, res) => {
+        let searchString = req.query.search;
+        console.log(searchString)
+        Pharmacy.find({$text: {$search: searchString}})
+        .exec((err, results) => {
+            if (err) {
+                res.json({status: 404, err, success: false})
+            } else {
+                res.json({status: 200, results, success: true})
+            }
+        })
     }
 }
 

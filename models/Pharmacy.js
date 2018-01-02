@@ -70,4 +70,6 @@ var PharmacySchema = new mongoose.Schema({
 
 });
 
+PharmacySchema.index({name: 'text', description: 'text'});
+
 module.exports = mongoose.model('Pharmacy', PharmacySchema);
