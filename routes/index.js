@@ -58,6 +58,7 @@ router.post('/pharmacies', PharmaciesController.createPharmacies); // create a p
 router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
 router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
 router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
+router.get('/search-pharmacies', PharmaciesController.search)
 
 // assessment response
 router.put('/delete-assessment-responses/:id', AssessmentsResonseController.deleteAssessmentResponse); // create assesment response
