@@ -85,7 +85,8 @@ router.get('/conversation/:conversationId/messages', messagesController.conversa
 //notifications
 router.post('/notifications', notificationsController.create);
 router.get('/getuser-notifications/:userId', notificationsController.getUserNotifications);
-
+router.put('/notification/:notificationId', notificationsController.updateNotifications);
+router.delete('/notification/:notificationId', notificationsController.deleteNotification);
 
 
 

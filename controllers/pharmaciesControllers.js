@@ -100,7 +100,6 @@ module.exports = {
 
     search: (req, res) => {
         let searchString = req.query.search;
-        console.log(searchString)
         Pharmacy.find({$text: {$search: searchString}})
         .exec((err, results) => {
             if (err) {
