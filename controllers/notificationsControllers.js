@@ -55,6 +55,19 @@ module.exports =  {
           res.json({ success: true, notification, status: 200 })
         }
      })
-   }
+   },
+
+   getUserNotificationsCount: (req, res) => {
+    const userId = req.params.userId;
+     Notification.find({receiver: userId, seen: false})
+     .exec((err, notifications) => {
+       let count = notifications.length
+		   if (err) {
+          res.json({ success: false, err, status: 401 });
+       } else {
+          res.json({ success: true, count: count, status: 200 })
+       }  
+	   })
+   },
 
 }
