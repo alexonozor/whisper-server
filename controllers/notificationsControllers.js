@@ -19,9 +19,10 @@ module.exports =  {
     
    getUserNotifications: (req, res) => {
     const userId = req.params.userId;
-     Notification.find({receiver: userId})
+     Notification.find({receiver: userId, isDeleted: false})
      .populate('receiver', 'id, firstName')
      .populate('sender', 'id, firstName')
+     .sort({createdAt: 'desc'})
      .exec((err, notifications) => {
 		   if (err) {
           res.json({ success: false, err, status: 401 });
@@ -29,6 +30,31 @@ module.exports =  {
           res.json({ success: true, notifications, status: 200 })
        }  
 	   })
-   }	
+   },
+   
+   updateNotifications: (req, res) => {
+     const notificationId = req.params.notificationId;
+     let params = req.body;
+     Notification.findByIdAndUpdate(notificationId, params)
+     .exec((err, notification) => {
+        if (err) {
+          res.json({ success: false, err, status: 401 });
+        } else {
+          res.json({ success: true, notification, status: 200 })
+        }
+     })
+   },
+
+   deleteNotification: (req, res) => {
+     const notificationId = req.params.notificationId;
+     Notification.findByIdAndRemove(notificationId)
+     .exec((err, notification) => {
+        if (err) {
+          res.json({ success: false, err, status: 401 });
+        } else {
+          res.json({ success: true, notification, status: 200 })
+        }
+     })
+   }
 
 }
