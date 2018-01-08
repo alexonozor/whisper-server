@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 var User = require('./User.js');
-const NOTIFICATION_TYPE = ['openConversation', 'closeConversation', 'message', 'announcment'];
+const NOTIFICATION_TYPE = ['openConversation', 'joinConversation', 'closeConversation', 'message', 'announcment'];
 
 // Schema defines how the Contraceptive data will be stored in MongoDB
 var NotificationSchema = new mongoose.Schema({
