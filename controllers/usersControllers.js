@@ -198,6 +198,14 @@ module.exports = {
                 res.json({ success: false, message: 'Pharmacy not found', status: 401 });
             }
         })
+    },
+
+    searchUsers: (req, res) => {
+        const searchTerms = req.query.searchTerms;
+        User.find({'firstName' : new RegExp(searchTerms, 'i')})
+        .exec((err, users) => {
+            res.json({ success: true, users, status: 200 });
+        })
     }
     
 

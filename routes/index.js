@@ -18,6 +18,7 @@ router.post('/login', authenticationController.login);
 router.put('/user/:id', usersController.updateUser);
 router.get('/users', usersController.getAllUsers);
 router.get('/user/:id', usersController.getAUser);
+router.get('/searchUsers', usersController.searchUsers)
 router.post('/adduser-to-pharmacies', usersController.addUserToPhamarcy);
 router.delete('/removeuser-to-pharmacies', usersController.removeUserFromPharmacy);
 router.delete('/permanetly-delete-users/:id', usersController.permanentlyDeleteUser);
