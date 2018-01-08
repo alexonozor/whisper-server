@@ -54,8 +54,10 @@ module.exports =  {
             res.json({ success: false, message: "No Conversation id" })
         } else {
             Conversation.findOne({_id: conversationId})
-            .populate('users', '_id, userName')
             .populate('messages')
+            .populate('startedBy')
+            .populate('users')
+            .populate('assessmentResponse')
             .exec((err, conversation) => {
                 if (err) {
                     res.json({ success: false, err, status: 501 });

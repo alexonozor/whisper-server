@@ -41,6 +41,21 @@ module.exports = {
             })
     },
 
+    getAssesmentResponse: (req, res) => {
+        let assesmentResponseId = req.params.assesmentResponseId;
+        AssessmentResponse.findById(assesmentResponseId)
+        .populate('contraceptive', 'name')
+        .populate('user')
+        .populate('assesments.question')
+        .populate('assessments._answers')
+        .populate('shippingMethod')
+        .sort({createdAt: 'desc'})
+            .exec(function(err, responses) {
+                if (err) res.json(err);
+                    res.json({ success: true, responses, status: 200 });
+            })
+    },
+
 
 
     createAssessmentResponse: (req, res) => {

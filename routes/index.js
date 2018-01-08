@@ -65,6 +65,7 @@ router.put('/delete-assessment-responses/:id', AssessmentsResonseController.dele
 router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response
 router.get('/assessment-responses', AssessmentsResonseController.getResponses);
 router.get('/user-assessment-responses/:userId', AssessmentsResonseController.getUserResponses);
+router.get('/assessment-responses/:assesmentResponseId', AssessmentsResonseController.getAssesmentResponse);
 router.put('/update-assessment-responses/:id', AssessmentsResonseController.updateAssessmentResponse);
 router.post('/create-conversation', AssessmentsResonseController.createResponseConversation);
 router.put('/conversation/:conversationId/user/:userId', AssessmentsResonseController.addUserToConversation);
