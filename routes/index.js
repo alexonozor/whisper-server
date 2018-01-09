@@ -93,4 +93,3 @@ router.get('/notification-count/:userId', notificationsController.getUserNotific
 
 
 module.exports = router;
-//DATABASE=mongodb://onozor:onozorgheneho1@ds117869.mlab.com:17869/whisper
