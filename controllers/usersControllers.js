@@ -204,7 +204,11 @@ module.exports = {
         const searchTerms = req.query.searchTerms;
         User.find({'firstName' : new RegExp(searchTerms, 'i')})
         .exec((err, users) => {
-            res.json({ success: true, users, status: 200 });
+            if (err) {
+                console.log(err)
+            } else {
+                res.json({ success: true, users, status: 200 });                
+            }
         })
     }
     
