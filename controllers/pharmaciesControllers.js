@@ -100,12 +100,12 @@ module.exports = {
 
     search: (req, res) => {
         let searchString = req.query.search;
-        Pharmacy.find({$text: {$search: searchString}})
+        Pharmacy.find({'name' : new RegExp(searchString, 'i')})
         .exec((err, results) => {
             if (err) {
-                res.json({status: 404, err, success: false})
+                console.log(err)
             } else {
-                res.json({status: 200, results, success: true})
+                res.json({ success: true, results, status: 200 });                
             }
         })
     }
