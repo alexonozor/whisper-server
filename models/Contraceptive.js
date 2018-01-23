@@ -17,6 +17,7 @@ var ContraceptiveSchema = new mongoose.Schema({
     _assessments: [{ type: Number, ref: 'Assessment' }],
 
     minimumShippingQuantity: Number,
+    position: Number,
     maximumShippingQuantity: Number,
     price: Number,
     allowFirstTimerToUsePickUp: Boolean, default: false,
