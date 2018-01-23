@@ -21,6 +21,7 @@ module.exports = {
         Contraceptive.find()
         .populate('shippingMethods')
         .populate('releatedContraceptives', 'id, name')
+        .sort('position')
         .exec((err, contraceptives) => {
             if (err) return handleError(err);
             if (contraceptives) {
