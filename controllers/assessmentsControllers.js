@@ -60,8 +60,14 @@ module.exports = {
         Assessment.findOne({ _id: id })
             .populate('_answers')
             .exec(function(err, assesments) {
-                if (err) res.json({ success: false, message: err, status: 401 });
-                  res.json({ success: true, assesments, status: 200 });
+                if (err) {
+                     res.json({ success: false, message: err, status: 401 });
+                } else {
+                    Assessment.find({contraceptive: assesments.contraceptive}, "_id, question")
+                    .exec(function(err, assesmentQuestions) {
+                        res.json({ success: true, assesments, assesmentQuestions, status: 200 });
+                    })
+                }
             })
     },
 
