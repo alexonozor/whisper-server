@@ -72,7 +72,7 @@ module.exports = {
             if (err) {
                 res.json({ success: false, err, status: 401 });
             } else {
-                console.log(assessmentResponse);
+            
                 AssessmentResponse.findById(assessmentResponse._id)
                 .populate('user')
                 .populate('contraceptive').exec(function(err, response) {
@@ -132,7 +132,6 @@ module.exports = {
             } else {
                 if (updateShipping) {
                     User.findById(assessmentResponse.user).exec((err, user) => {
-                        console.log(user)
                         user.orders.push(assessmentResponse.contraceptive);
                         user.save((err) => {
                             if (err) throw err

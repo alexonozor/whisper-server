@@ -1,5 +1,6 @@
 const Assessment = require('../models/Assessment');
 const Answer = require('../models/Answer.js');
+const Contraceptive = require('../models/Contraceptive.js');
 
 module.exports = {
     create: (req, res) => {
@@ -63,7 +64,7 @@ module.exports = {
                 if (err) {
                      res.json({ success: false, message: err, status: 401 });
                 } else {
-                    Assessment.find({contraceptive: assesments.contraceptive}, "_id, question")
+                    Assessment.find({contraceptive: assesments.contraceptive, published:  true}, "_id, question")
                     .exec(function(err, assesmentQuestions) {
                         res.json({ success: true, assesments, assesmentQuestions, status: 200 });
                     })
