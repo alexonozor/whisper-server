@@ -10,6 +10,7 @@ const PharmaciesController = require('../controllers/pharmaciesControllers');
 const shippingMethodsController = require('../controllers/shippingMethodsControllers');
 const messagesController = require('../controllers/messagesControllers');
 const notificationsController = require('../controllers/notificationsControllers');
+const threadsController = require('../controllers/threadsControllers');
 const passport = require('passport');
 
 // Do work here
@@ -91,5 +92,12 @@ router.put('/notification/:notificationId', notificationsController.updateNotifi
 router.delete('/notification/:notificationId', notificationsController.deleteNotification);
 router.get('/notification-count/:userId', notificationsController.getUserNotificationsCount)
 
+//threads
+router.post('/threads', threadsController.createThread);
+router.get('/threads', threadsController.getThreads);
+router.get('/thread-available/:reciepaint/:sender', threadsController.isThreadAvalilable);
+router.get('/user-threads/:userId', threadsController.getUserThreads);
+router.get('/thread/:threadId', threadsController.getThread);
+router.post('/threads-message', threadsController.createThreadMessage);
 
 module.exports = router;
