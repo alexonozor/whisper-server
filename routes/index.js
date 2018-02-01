@@ -62,6 +62,7 @@ router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update phar
 router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
 router.get('/search-pharmacies', PharmaciesController.search)
 
+
 // assessment response
 router.put('/delete-assessment-responses/:id', AssessmentsResonseController.deleteAssessmentResponse); // create assesment response
 router.post('/assessment-responses', AssessmentsResonseController.createAssessmentResponse); // create assesment response

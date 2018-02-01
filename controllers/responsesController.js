@@ -35,6 +35,7 @@ module.exports = {
         .populate('assesments.question')
         .populate('assessments._answers')
         .sort({createdAt: 'desc'})
+        .limit(6)
             .exec(function(err, responses) {
                 if (err) res.json(err);
                     res.json({ success: true, responses, status: 200 });
