@@ -45,7 +45,7 @@ module.exports = {
         Thread.find()
         .or([{ reciepaint: userId }, { startedBy: userId }])
         .populate('reciepaint')
-        .populate('messages', '_id, content')
+        .populate('messages')
         .exec((err, thread) => {
             if (err) {
                 res.json({success: false, err, status: 500})
