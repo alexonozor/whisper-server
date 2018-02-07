@@ -43,6 +43,7 @@ module.exports = {
     getUserThreads: (req, res) => {
         let userId = req.params.userId;
         Thread.find()
+        .sort({createdAt: 'desc'})
         .or([{ reciepaint: userId }, { startedBy: userId }])
         .populate('reciepaint')
         .populate('messages')
