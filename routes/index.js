@@ -11,6 +11,7 @@ const shippingMethodsController = require('../controllers/shippingMethodsControl
 const messagesController = require('../controllers/messagesControllers');
 const notificationsController = require('../controllers/notificationsControllers');
 const threadsController = require('../controllers/threadsControllers');
+const configController = require('../controllers/configController');
 const passport = require('passport');
 
 // Do work here
@@ -100,5 +101,8 @@ router.get('/thread-available/:reciepaint/:sender', threadsController.isThreadAv
 router.get('/user-threads/:userId', threadsController.getUserThreads);
 router.get('/thread/:threadId', threadsController.getThread);
 router.post('/threads-message', threadsController.createThreadMessage);
+
+//config
+router.get('/app-config', configController.getConfig);
 
 module.exports = router;
