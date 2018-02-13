@@ -64,6 +64,12 @@ var UserSchema = new mongoose.Schema({
     default: false
   },
 
+  recieveEmail: {
+    type: Boolean,
+    default: true
+  },
+
+
   password: {
     type: String,
     required: true

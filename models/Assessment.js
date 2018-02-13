@@ -9,6 +9,7 @@ var AssessmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    position: Number,
     contraceptive: { type: String, ref: 'Contraceptive' },
     published: { type: Boolean, default: false },
     _answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }]
