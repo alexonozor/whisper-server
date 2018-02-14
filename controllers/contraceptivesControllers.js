@@ -59,11 +59,13 @@ module.exports = {
     contraceptiveAssessments: (req, res) => {
         let id = req.params.id;
 
-        Contraceptive.findOne({ _id: id }).exec(function(err, contraceptive) {
+        Contraceptive.findOne({ _id: id })
+        .exec(function(err, contraceptive) {
             if (err) return handleError(err);
             Assessment.find({ contraceptive: id, published:  true })
                 .sort({createdAt: 'desc'})
                 .populate({path: '_answers', match: { published: { $eq: true }}})
+                .sort('position')
                 .exec(function(err, assesments) {
                     if (err) return handleError(err);
                     res.json({ success: true, assesments, contraceptive, status: 200 });
