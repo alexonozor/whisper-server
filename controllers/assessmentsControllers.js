@@ -19,6 +19,7 @@ module.exports = {
     getAssessments: (req, res) => {
         Assessment.find()
             .populate('_answers')
+            .sort('position')
             .exec(function(err, assesments) {
                 if (err) return handleError(err);
                 res.json({ success: true, assesments, status: 200 });
