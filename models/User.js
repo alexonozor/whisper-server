@@ -6,7 +6,7 @@ var Pharmacy = require('../models/Pharmacy.js');
 var Contraceptive = require('../models/Contraceptive.js');
 
 const GENDER = ['Male', 'Female'];
-const ACCOUNT_TYPE = ['Member', 'Pharmacist', 'Doctor'];
+const ACCOUNT_TYPE = ['Member', 'Pharmacist', 'Doctor', 'Admin'];
 
 // Schema defines how the user data will be stored in MongoDB
 var UserSchema = new mongoose.Schema({  
