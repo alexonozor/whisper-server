@@ -9,6 +9,7 @@ module.exports = {
         Contraceptive.find({ published: true })
         .populate('shippingMethods')
         .populate('releatedContraceptives', 'id, name')
+        .sort('position')
         .exec((err, contraceptives) => {
             if (err) return handleError(err);
             if (contraceptives) {
