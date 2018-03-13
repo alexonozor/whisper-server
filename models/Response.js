@@ -29,7 +29,8 @@ var ResponseSchema = new mongoose.Schema({
     },
     hasConversation: {  type: Boolean, default: false },
     conversation: { type: Schema.Types.ObjectId, ref: 'ResponseConversation' },
-    isDeleted: { type: Boolean, default: false }
+    isDeleted: { type: Boolean, default: false },
+    success: { type: Boolean, default: false } 
 });
 
 
