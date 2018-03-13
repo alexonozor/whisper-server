@@ -30,7 +30,8 @@ module.exports = {
 
   getUserResponses: (req, res) => {
     let userId = req.params.userId;
-    AssessmentResponse.find({ user: userId, isDeleted: false })
+    let isEligability = req.query.isEligable;
+    AssessmentResponse.find({ user: userId, isDeleted: false, success: isEligability })
       .populate('contraceptive', 'name')
       .populate('assesments.question')
       .populate('assessments._answers')
