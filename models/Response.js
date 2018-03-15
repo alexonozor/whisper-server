@@ -6,7 +6,7 @@ var Contraceptive = require('./Contraceptive.js');
 var Pharmacy = require('./Pharmacy.js');
 var ShippingMethod = require('./ShippingMethod.js');
 var ResponseConversation = require('./ResponseConversation.js');
-
+const STATUS = ['Pending', 'Shipping', 'Delivered', 'Failed'];
 // Schema defines how the Contraceptive data will be stored in MongoDB
 var ResponseSchema = new mongoose.Schema({
     createdAt: { type: Date },
@@ -30,7 +30,16 @@ var ResponseSchema = new mongoose.Schema({
     hasConversation: {  type: Boolean, default: false },
     conversation: { type: Schema.Types.ObjectId, ref: 'ResponseConversation' },
     isDeleted: { type: Boolean, default: false },
-    success: { type: Boolean, default: false } 
+    success: { type: Boolean, default: false },
+    orders: [{
+        reOrderedAt: { type: Date },
+        qunatity: { type: Number, default: 0 }
+    }],
+    responseStatus: {
+        type: String,
+        enum: STATUS,
+        default: 'Pending'
+    }
 });
 
 
