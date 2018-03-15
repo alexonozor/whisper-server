@@ -120,25 +120,40 @@ module.exports = {
     })
   },
 
+  
   updateAssessmentResponse: (req, res) => {
-    let response = req.body;
+    let params = req.body;
     let responseId = req.params.id;
     let updateShipping = req.query.updatingShippingForm;
+    let isReOrder = req.query.reOrder;
     let userId = req.query.userId;
-    AssessmentResponse.findByIdAndUpdate(responseId, response)
-      .exec((err, assessmentResponse) => {
+    let reorderParams = params;
+    AssessmentResponse.findById(responseId)
+      .exec((err, foundAssessment) => {
         if (err) {
           res.json({ success: false, err, status: 401 });
         } else {
-          if (updateShipping) {
-            User.findById(assessmentResponse.user).exec((err, user) => {
-              user.orders.push(assessmentResponse.contraceptive);
-              user.save((err) => {
-                if (err) throw err
-              })
+          if (isReOrder) {
+            foundAssessment.orders.push(reorderParams);
+            foundAssessment.save((err) => {
+              if (err) throw err
             })
-          }
-          res.json({ success: true, responseId: assessmentResponse._id, status: 200 });
+          } else {
+            AssessmentResponse.findByIdAndUpdate(responseId, params).exec((err, updatedParams) => {
+              if (err) throw err
+                console.log(updatedParams);
+            })
+          };
+          // if (updateShipping) {
+          //   console.log(foundAssessment)
+          //   // User.findById(foundAssessment.user).exec((err, user) => {
+          //   //   user.orders.push(foundAssessment.contraceptive);
+          //   //   user.save((err) => {
+          //   //     if (err) throw err
+          //   //   })
+          //   // })
+          // }
+          res.json({ success: true, responseId: foundAssessment._id, status: 200 });
         }
       })
   },
