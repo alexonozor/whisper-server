@@ -4,6 +4,7 @@ var Assessment = require('./Assessment.js');
 var User = require('./User.js');
 var Contraceptive = require('./Contraceptive.js');
 var Pharmacy = require('./Pharmacy.js');
+var Hospital = require('./Hospital.js');
 var ShippingMethod = require('./ShippingMethod.js');
 var ResponseConversation = require('./ResponseConversation.js');
 const STATUS = ['Pending', 'Shipping', 'Delivered', 'Failed'];
@@ -12,6 +13,7 @@ var ResponseSchema = new mongoose.Schema({
     createdAt: { type: Date },
     grandTotal: Number,
     selectedPharmacy: { type: Schema.Types.ObjectId, ref: 'Pharmacy' },
+    selectedHospital: { type: Schema.Types.ObjectId, ref: 'Hospital' },
     shippingMethod: { type: Schema.Types.ObjectId, ref: 'ShippingMethod' },
     user: { type: Schema.Types.ObjectId, ref: 'User',  required: true  },
     contraceptive: { type: Schema.Types.ObjectId, ref: 'Contraceptive', required: true  },
