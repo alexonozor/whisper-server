@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 var bcrypt = require('bcrypt');
 // var mongodbErrorHandler = require('mongoose-mongodb-errors')
 var Pharmacy = require('../models/Pharmacy.js');
+var Hospital = require('../models/Hospital.js');
 var Contraceptive = require('../models/Contraceptive.js');
 
 const GENDER = ['Male', 'Female'];
@@ -113,6 +114,7 @@ var UserSchema = new mongoose.Schema({
   },
 
   pharmacies: [{ type: Schema.Types.ObjectId, ref: 'Pharmacy' }],
+  hospitals: [{ type: Schema.Types.ObjectId, ref: 'Hospital' }],
   orders: [{ type: Schema.Types.ObjectId, ref: 'Contraceptive' }]
   
 });

@@ -7,6 +7,7 @@ const AssessmentsController = require('../controllers/assessmentsControllers');
 const AnswersController = require('../controllers/answersControllers');
 const AssessmentsResonseController = require('../controllers/responsesController');
 const PharmaciesController = require('../controllers/pharmaciesControllers');
+const HospitalsController = require('../controllers/hospitalsControllers');
 const shippingMethodsController = require('../controllers/shippingMethodsControllers');
 const messagesController = require('../controllers/messagesControllers');
 const notificationsController = require('../controllers/notificationsControllers');
@@ -55,11 +56,19 @@ router.delete('/answer/:id', AnswersController.deleteAnswer);
 router.put('/answer/:id', AnswersController.updateAnswer);
 
 // pharmacies
-router.get('/pharmacies', PharmaciesController.getAllPharmacies); // get all pharmacies
-router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single pharmacy
-router.post('/pharmacies', PharmaciesController.createPharmacies); // create a pharmacy
-router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a pharmacy
-router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update pharmacy
+router.get('/hospitals', HospitalsController.getAllHospitals); // get all pharmacies
+router.get('/hospital/:id', HospitalsController.getHospital); // get a single pharmacy
+router.post('/hospitals', HospitalsController.createHospital); // create a pharmacy
+router.delete('/hospital/:id', HospitalsController.deleteHospital); // delete a pharmacy
+router.put('/hospital/:id', HospitalsController.updateHospital); // update pharmacy
+router.get('/get-nearer-hospitals', HospitalsController.getNearerHospitals);
+router.get('/search-hospitals', HospitalsController.search)
+
+router.get('/pharmacies', PharmaciesController.getAllPharmacies); // get all hospital
+router.get('/pharmacy/:id', PharmaciesController.getPharmacy); // get a single hospital
+router.post('/pharmacies', PharmaciesController.createPharmacies); // create a hospital
+router.delete('/pharmacy/:id', PharmaciesController.deletePharmacy); // delete a hospital
+router.put('/pharmacy/:id', PharmaciesController.updatePharmacy); // update hospital
 router.get('/get-nearer-pharmacies', PharmaciesController.getNearerPhamacies);
 router.get('/search-pharmacies', PharmaciesController.search)
 
