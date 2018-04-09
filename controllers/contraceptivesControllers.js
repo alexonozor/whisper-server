@@ -8,7 +8,7 @@ module.exports = {
     getAllContraceptives: (req, res) => {
         Contraceptive.find({ published: true })
         .populate('shippingMethods')
-        .populate('releatedContraceptives', 'id, name')
+        .populate('releatedContraceptives')
         .sort('position')
         .exec((err, contraceptives) => {
             if (err) return handleError(err);
